@@ -1,0 +1,81 @@
+.navbarComponent{
+    width: 100%; 
+    max-height:100px;
+    z-index: 1000;
+    display:flex;
+    flex: 0.7;
+    color: #000;
+    font-size:1.3rem;
+    justify-content: flex-start;
+    align-items: center;
+    border-bottom: 1px solid #1a237e;
+    padding: 1rem;
+}
+.logo{
+    display: flex;
+    justify-content: center;
+    border-bottom: 1px solid black;
+    font-size: 2.2rem;
+    color:#000;
+    font-weight: 500;
+}
+.navbarmain{
+    display: flex;
+}
+.navBarComponentOptions{
+    cursor: pointer;
+    padding:1rem;
+    height:100%;
+}
+.navBarComponentOptions.highlightedOptionColor{
+    color:rgb(60, 190, 255);
+}
+.navBarComponentOptions:hover{
+    color:rgb(60, 190, 255);
+    transform: scale(1.01);
+}
+.mobile-navbar-container{
+    display: none;
+}
+.active,.notActive{
+    display: none;
+}
+@media(max-width:750px){
+    .navbarmain{
+        display:none;
+    }
+    .mobile-navbar-container{
+        display: flex;
+        padding-inline:1.4rem;
+        padding-block:0.7rem;
+        align-items: center;
+        justify-content: space-between;
+        border-bottom: 1px solid black;
+    }
+    .mobile-navbar-container>svg{
+        cursor:pointer
+    }
+    .mobile-navbar-sidebar{
+        background-color: rgb(255, 255, 255);
+        gap:5px;
+        position: absolute;
+        width: fit-content;
+        padding-block:1rem;
+        padding-inline:1.8rem;
+        top:80px;
+        right:5px;
+        border-radius: 5px;
+        width: fit-content;
+        min-width: 100px;
+        height: fit-content;
+        flex-direction: column;
+        z-index: 100;
+    }
+    .active{
+        display: flex;
+    }
+    .notActive{
+        display: none;
+    }
+
+}
