@@ -1,4 +1,5 @@
 .main-container{
+    padding-top: 100px;
     display: flex;
     height: 100vh;
 }

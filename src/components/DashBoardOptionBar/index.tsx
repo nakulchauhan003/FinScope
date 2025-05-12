@@ -79,9 +79,9 @@ export default function DashBoardOptionBar(){
                 </div>
             </Link>
             <Link to={'/dashboard/Dues'}>
-                <div className={`DashboardOptions ${location.pathname==='/dashboard/FD'?"dashboardOptionColor":""}`}>
+                <div className={`DashboardOptions ${location.pathname==='/dashboard/Dues'?"dashboardOptionColor":""}`}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15 8.25H9m6 3H9m3 6-3-3h1.5a3 3 0 1 0 0-6M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                     </svg>
                     <div>Dues</div>
                 </div>

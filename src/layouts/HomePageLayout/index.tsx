@@ -1,12 +1,12 @@
 import NavHeader from "../../navbar";
-import NavBar from "../../navbar";
 type HomePageLayoutProps={
     children:React.ReactNode;
 };
 export default function HomePageLayout({children}:HomePageLayoutProps){
     return(
         <div>
-           <header className="justify-center items-center h-full pt-2 absolute">
+            <img src="/images/Screenshot 2025-05-03 132116.png" className="absolute top-[10px] left-[20px] h-[10%] min-h-[60px]" alt="" />
+            <header className="z-[100] justify-center items-center h-auto pt-2 absolute left-1/2 transform -translate-x-1/2">
             <NavHeader />
             </header>
             {children}

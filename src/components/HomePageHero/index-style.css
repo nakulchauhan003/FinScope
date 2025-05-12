@@ -8,7 +8,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap:2rem;
+    gap:4rem;
 }
 .homeHeroContainer>h1{
     background: linear-gradient(0.25turn, #a8a7a7,#1c1c1c,#000);

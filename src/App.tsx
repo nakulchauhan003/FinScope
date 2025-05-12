@@ -11,6 +11,7 @@ import RealTimeOptPage from "./pages/realTimeOptPage";
 import PersoSuggPage from "./pages/persoSuggPage";
 import RiskAssmtPage from "./pages/riskAssmtPage";
 import IntTermPredPage from "./pages/intTermPredPage";
+import DuesPage from "./pages/DuesPage";
 
 
 export default function App() {
@@ -29,6 +30,7 @@ export default function App() {
         <Route path='/dashboard/ELR' element={<ExpLrPage/>}/>
         <Route path='/dashboard/CA' element={<ChatBotPage/>}/>
         <Route path='/dashboard/FD' element={<FraudDetPage/>}/>
+        <Route path="/dashboard/Dues" element={<DuesPage/>}/>
       </Routes>
     </>
   )

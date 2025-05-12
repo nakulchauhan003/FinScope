@@ -5,7 +5,7 @@ import HomePageLayout from "../layouts/HomePageLayout";
 export default function Home(){
     return(
         <HomePageLayout>
-            <div className="relative h-[150vh]">
+            <div className="relative min-h-screen">
                 <WavesDemo/>
                 <HomePageHero/>
             </div>
