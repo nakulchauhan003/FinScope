@@ -1,37 +1,46 @@
 .navbarComponent{
-    width: 100%; 
+    width: fit-content; 
     max-height:100px;
     z-index: 1000;
     display:flex;
-    flex: 0.7;
+    flex: 0.5;
     color: #000;
     font-size:1.3rem;
     justify-content: flex-start;
     align-items: center;
-    border-bottom: 1px solid #1a237e;
+    border:1px solid black;
+    border-radius: 2rem;
+    /* border-bottom: 1px solid #1a237e; */
     padding: 1rem;
 }
 .logo{
     display: flex;
     justify-content: center;
-    border-bottom: 1px solid black;
+    /* border-bottom: 1px solid black; */
     font-size: 2.2rem;
-    color:#000;
+    color:#272626;
     font-weight: 500;
 }
 .navbarmain{
     display: flex;
+    padding-inline: 20px;
+    /* border:1px solid black; */
 }
 .navBarComponentOptions{
+    color:rgb(16, 15, 15);
     cursor: pointer;
     padding:1rem;
     height:100%;
+    transition: all 0.4s ease-in-out;
+    border-radius: 30px;
 }
 .navBarComponentOptions.highlightedOptionColor{
     color:rgb(60, 190, 255);
 }
 .navBarComponentOptions:hover{
-    color:rgb(60, 190, 255);
+    color:rgb(255, 255, 255);
+    background: #000;
+    border-radius: 30px;
     transform: scale(1.01);
 }
 .mobile-navbar-container{

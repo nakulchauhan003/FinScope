@@ -2,6 +2,7 @@ import { Link } from 'react-router-dom';
 import { Demo } from '../LogoSymbol/demo';
 import './index-style.css';
 import { useRef } from 'react';
+import { AnimatedTestimonialsDemo } from '../ui-cards/demo';
 export default function HomePageHero(){
     const scrollRef = useRef<HTMLDivElement | null>(null);
 
@@ -19,7 +20,7 @@ export default function HomePageHero(){
         <div className="homeHeroContainer relative z-10">
             <h1 className="text-[4rem] font-bold">Welcome To FinScope</h1>
             <p className="text-[4rem]">See Risk. Simulate. Decide Smarter.</p>
-            <div className="scroll-wrapper">
+            {/* <div className="scroll-wrapper">
                 <button className="scroll-btn left" onClick={() => scroll(-1)}>←</button>
                 <div className="scroll-container" ref={scrollRef}>
                         <div className="card">Interest & Term Predection</div>
@@ -29,7 +30,8 @@ export default function HomePageHero(){
                         <div className='card'>Personalized Suggestion</div>
                  </div>
                 <button className="scroll-btn right" onClick={() => scroll(1)}>→</button>
-            </div>
+            </div> */}
+            <AnimatedTestimonialsDemo/>
         </div>
 
         <Link to={'/dashboard/CA'}>

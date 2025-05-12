@@ -8,9 +8,9 @@ export default function DashBoardOptionBar(){
         <>
         <div className={`DashboardSideBar ${isMobileBarOpen?"activeside-bar":"unactive-side-bar"}`}>
             <Link to={'/'}>
-                <div className={`w-[250px] border-b-[1px] min-w-[250px] flex justify-center items-center pt-2 ${location.pathname==='/'?"dashboardOptionColor":""}`}>
+                <div className={`finscope w-[250px] border-b-[1px] min-w-[250px] flex justify-center items-center pt-2 ${location.pathname==='/'?"dashboardOptionColor":""}`}>
                     <img src="/images/Screenshot 2025-05-03 132116.png" className='w-[20%]' alt="" />
-                    <div className='text-4xl font-[700]'>FinScope</div>
+                    <div className='text-4xl font-[700] finscope-heading'>FinScope</div>
                 </div>
             </Link>
             <Link to={'/dashboard'}>
@@ -76,6 +76,14 @@ export default function DashBoardOptionBar(){
                         <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
                     </svg>
                     <div>Fraud Detection</div>
+                </div>
+            </Link>
+            <Link to={'/dashboard/Dues'}>
+                <div className={`DashboardOptions ${location.pathname==='/dashboard/FD'?"dashboardOptionColor":""}`}>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                    </svg>
+                    <div>Dues</div>
                 </div>
             </Link>
         </div>

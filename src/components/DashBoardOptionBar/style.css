@@ -1,6 +1,8 @@
 .DashboardSideBar{
     height: 100vh;
-    min-width: 250px;
+    /* min-width: 250px; */
+    min-width:60px;
+    width: 60px;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -11,7 +13,8 @@
     font-size: 1.2rem;
     overflow-y: auto;
     overflow-x: hidden;
-    border-right: 1px solid black;
+    border-right: 1px solid rgb(172, 172, 172);
+    transition: all 0.3s ease-in-out;
 }
 .DashboardOptions{
     display: flex;
@@ -22,6 +25,26 @@
     padding-inline:0.8rem;
     cursor: pointer;
 }
+.DashboardOptions>div{
+    display: none;
+}
+.finscope{
+    justify-content: flex-start;
+}
+.finscope-heading{
+    display:none;
+    width: fit-content;
+}
+.DashboardSideBar:hover{
+    width: 250px;
+    .DashboardOptions>div{
+        display: inline-block;
+    }
+    .finscope-heading{
+        display:inline-block;
+    }
+}
+
 .DashboardOptions:hover{
     color: rgb(60, 190, 255);
 }

@@ -11,15 +11,15 @@
     gap:2rem;
 }
 .homeHeroContainer>h1{
-    background: linear-gradient(0.25turn, #78d2f3,#744eff, #78d2f3);
+    background: linear-gradient(0.25turn, #a8a7a7,#1c1c1c,#000);
     background-size: 200% auto;
     -webkit-background-clip:text;
     -webkit-text-fill-color: transparent;
-    animation:colorShift 3s linear infinite;
+    /* animation:colorShift 9s linear infinite; */
 }
 .homeHeroContainer>p{
     font-size: 1.6rem;
-    color:#744eff;
+    color: #1c1c1c;;
 }
 .AiLogoBottomRight{
     position: fixed;
@@ -91,6 +91,7 @@
     0% {
         background-position: 0% center;
     }
+
     100% {
         background-position: 200% center;
     }

@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@delicious-simplicity/next-image-contentful-loader": "^1.0.4",
+    "@tabler/icons-react": "^3.31.0",
     "axios": "^1.9.0",
     "framer-motion": "^12.9.4",
     "next-images": "^1.8.5",
