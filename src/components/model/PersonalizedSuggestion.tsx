@@ -1,87 +1,65 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-interface Prediction {
-  interestRate: number;
-  duration: number;
-}
-
-interface Plan {
+interface Competitor {
   name: string;
-  termYears: number;
-  emi: number;
-  totalInterest: number;
-  description: string;
+  rate: number;
 }
 
-const InterestPrediction: React.FC = () => {
+const RateComparison: React.FC = () => {
   const [creditScore, setCreditScore] = useState(700);
   const [income, setIncome] = useState(50000);
-  const [loanAmount, setLoanAmount] = useState(10000);
-  const [preference, setPreference] = useState("Low Interest");
-  const [prediction, setPrediction] = useState<Prediction | null>(null);
-  const [plans, setPlans] = useState<Plan[] | null>(null);
+  const [loanAmount, setLoanAmount] = useState(100000);
+  const [termYears, setTermYears] = useState(5);
+  const [competitors, setCompetitors] = useState<Competitor[]>([
+    { name: "", rate: 0 }
+  ]);
+  const [modelRate, setModelRate] = useState<number>(0);
+  const [offers, setOffers] = useState<{ name: string; competitorRate: number; ourOffer: number; saving: number }[]>([]);
 
-  const calcEMI = (principal: number, rate: number, termYears: number) => {
-    const monthlyRate = rate / 12 / 100;
-    const months = termYears * 12;
-    return (
-      (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) /
-      (Math.pow(1 + monthlyRate, months) - 1)
-    );
+  // Model rate calculation (simulated)
+  const calculateModelRate = () => {
+    let baseRate = 15 - (creditScore - 600) * 0.02 - income / 100000;
+    return parseFloat(Math.max(5, Math.min(20, baseRate)).toFixed(2));
   };
 
-  const generatePrediction = () => {
-    let baseRate = 15 - (creditScore - 600) * 0.02 - income / 100000;
-    baseRate = Math.max(5, Math.min(20, baseRate));
-    let duration = 5;
-    if (preference === "Short Term") duration = 3;
-    else if (preference === "Low Interest") duration = 7;
+  // Optimize rate relative to competitor (margin: 0.1%)
+  const optimizeAgainst = (compRate: number, optRate: number) => {
+    const offer = Math.min(optRate, parseFloat((compRate - 0.1).toFixed(2)));
+    return offer;
+  };
 
-    setPrediction({ interestRate: parseFloat(baseRate.toFixed(2)), duration });
+  const handleCompetitorChange = (index: number, field: keyof Competitor, value: string) => {
+    const updated = [...competitors];
+    if (field === "name") updated[index].name = value;
+    else updated[index].rate = Number(value);
+    setCompetitors(updated);
+  };
 
-    const basePlans = [
-      { label: "Low EMI", years: 7 },
-      { label: "Short Term", years: 3 },
-      { label: "Balanced", years: 5 },
-    ];
+  const addCompetitor = () => {
+    setCompetitors((prev) => [...prev, { name: "", rate: 0 }]);
+  };
 
-    const smartSortedPlans = basePlans.sort((a, b) => {
-      if (preference === "Low Interest" || preference === "Short Term") return a.years - b.years;
-      if (preference === "Low EMI") return b.years - a.years;
-      return 0;
-    });
-
-    const opts: Plan[] = smartSortedPlans.map((p, idx) => {
-      const emi = Math.round(calcEMI(loanAmount, baseRate, p.years));
-      const totalInterest = Math.round(emi * p.years * 12 - loanAmount);
-      return {
-        name: `Option ${String.fromCharCode(65 + idx)} – ${p.label} Plan`,
-        termYears: p.years,
-        emi,
-        totalInterest,
-        description:
-          p.label === "Low EMI"
-            ? "Good for users wanting lowest monthly payment"
-            : p.label === "Short Term"
-            ? "Good for users wanting to close the loan fast"
-            : "Good for users who want a balance between EMI & interest",
-      };
-    });
-
-    setPlans(opts);
+  const generateOffers = () => {
+    const optRate = calculateModelRate();
+    setModelRate(optRate);
+    const newOffers = competitors
+      .filter((c) => c.name.trim() && c.rate > 0)
+      .map((c) => {
+        const ourOffer = optimizeAgainst(c.rate, optRate);
+        const saving = parseFloat((c.rate - ourOffer).toFixed(2));
+        return { name: c.name, competitorRate: c.rate, ourOffer, saving };
+      });
+    setOffers(newOffers);
   };
 
   return (
-    <div className="max-w-2xl mx-auto mt-10 p-6 bg-white shadow-md rounded-2xl">
-      <section className="mb-8 p-4 border rounded-lg bg-gray-50">
-        <h1 className="text-2xl font-semibold mb-2">AI-Driven Loan Scenarios</h1>
-        <p><strong>Purpose:</strong> To generate AI-driven loan scenarios that match a user's financial preferences and profile.</p>
-        <p className="mt-2 italic">“Get 3 smart loan options tailored just for you — based on your profile and goals. Compare, understand, and choose confidently.”</p>
-      </section>
+    <div className="max-w-3xl mx-auto mt-10 p-6 bg-white shadow-md rounded-xl">
+      <h1 className="text-2xl font-semibold mb-4">Personalized Rate Comparison</h1>
+      <p className="mb-6 text-gray-600">Enter your details and competitor rates to see our best offer.</p>
 
-      <div className="space-y-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium mb-1">Credit Score: {creditScore}</label>
+          <label className="block text-sm font-medium">Credit Score: {creditScore}</label>
           <input
             type="range"
             min={300}
@@ -93,7 +71,7 @@ const InterestPrediction: React.FC = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">Annual Income ($)</label>
+          <label className="block text-sm font-medium">Annual Income ($)</label>
           <input
             type="number"
             value={income}
@@ -102,7 +80,7 @@ const InterestPrediction: React.FC = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">Loan Amount ($)</label>
+          <label className="block text-sm font-medium">Loan Amount ($)</label>
           <input
             type="number"
             value={loanAmount}
@@ -111,50 +89,81 @@ const InterestPrediction: React.FC = () => {
           />
         </div>
         <div>
-          <label className="block text-sm font-medium mb-1">Customer Preference</label>
-          <select
-            value={preference}
-            onChange={(e) => setPreference(e.target.value)}
-            className="w-full border rounded px-3 py-2"
-          >
-            <option>Low Interest</option>
-            <option>Short Term</option>
-            <option>Low EMI</option>
-            <option>Balanced</option>
-          </select>
+          <label className="block text-sm font-medium">Term (Years): {termYears}</label>
+          <input
+            type="range"
+            min={1}
+            max={10}
+            step={1}
+            value={termYears}
+            onChange={(e) => setTermYears(Number(e.target.value))}
+            className="w-full"
+          />
         </div>
+      </div>
+
+      <div className="mt-6">
+        <h2 className="text-lg font-medium mb-2">Competitor Rates</h2>
+        {competitors.map((comp, idx) => (
+          <div key={idx} className="flex items-center gap-2 mb-2">
+            <input
+              type="text"
+              placeholder="Bank name"
+              value={comp.name}
+              onChange={(e) => handleCompetitorChange(idx, "name", e.target.value)}
+              className="flex-1 border rounded px-3 py-2"
+            />
+            <input
+              type="number"
+              placeholder="Rate %"
+              value={comp.rate}
+              onChange={(e) => handleCompetitorChange(idx, "rate", e.target.value)}
+              className="w-24 border rounded px-3 py-2"
+            />
+          </div>
+        ))}
         <button
-          onClick={generatePrediction}
-          className="w-full bg-blue-600 text-white py-2 rounded-2xl hover:bg-blue-700 transition"
+          onClick={addCompetitor}
+          className="mt-2 text-sm text-blue-600 hover:underline"
         >
-          Generate Plans
+          + Add another bank
         </button>
       </div>
 
-      {plans && (
-        <section className="mt-8 space-y-4">
-          <h2 className="text-xl font-semibold">AI Simulated Smart Loan Plans</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            {plans.map((plan, i) => (
-              <div key={plan.name} className="p-4 border rounded-2xl shadow-sm bg-gray-50">
-                <h3 className="font-bold mb-1">{plan.name}</h3>
-                <p><strong>Term:</strong> {plan.termYears} years</p>
-                <p><strong>EMI:</strong> ₹{plan.emi.toLocaleString()}</p>
-                <p><strong>Total Interest:</strong> ₹{plan.totalInterest.toLocaleString()}</p>
-                <p className="mt-1 italic text-sm">{plan.description}</p>
-                {i === 0 && (
-                  <p className="text-green-700 font-medium text-sm mt-1">✅ Best match for your goal: “{preference}”</p>
-                )}
-                <button className="mt-2 w-full bg-green-600 text-white py-1 rounded hover:bg-green-700 transition">
-                  Select Plan
-                </button>
-              </div>
-            ))}
-          </div>
-        </section>
+      <button
+        onClick={generateOffers}
+        className="mt-6 w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+      >
+        Compare & Get Offer
+      </button>
+
+      {offers.length > 0 && (
+        <div className="mt-8">
+          <h2 className="text-xl font-semibold mb-4">Comparison Results</h2>
+          <table className="w-full text-left border-collapse">
+            <thead>
+              <tr>
+                <th className="p-2 border">Bank</th>
+                <th className="p-2 border">Competitor Rate</th>
+                <th className="p-2 border">Our Offer</th>
+                <th className="p-2 border">You Save</th>
+              </tr>
+            </thead>
+            <tbody>
+              {offers.map((o, i) => (
+                <tr key={i} className="hover:bg-gray-50">
+                  <td className="p-2 border">{o.name}</td>
+                  <td className="p-2 border">{o.competitorRate}%</td>
+                  <td className="p-2 border text-green-600 font-medium">{o.ourOffer}%</td>
+                  <td className="p-2 border">{o.saving}%</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
     </div>
   );
 };
 
-export default InterestPrediction;
+export default RateComparison;

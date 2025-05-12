@@ -1,5 +1,6 @@
-export default function RiskAssesmentComponent(){
+import RiskAsses from '../model/RiskAsses'
+export default function IntAndTermPredComponent(){
     return(
-        <div>Risk Assesment Page</div>
+        <RiskAsses/>
     )
 }

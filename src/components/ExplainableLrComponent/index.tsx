@@ -1,5 +1,6 @@
-export default function ExplanableLrComponent(){
+import Explainablelr from '../model/Explainablelr'
+export default function IntAndTermPredComponent(){
     return(
-        <div>ExplanableLrComponent Page</div>
+        <Explainablelr/>
     )
 }
