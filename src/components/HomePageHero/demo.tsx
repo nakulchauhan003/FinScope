@@ -4,7 +4,7 @@ import { TestimonialsSection } from "./testimonial-cards"
 const testimonials = [
   {
     author: {
-      name: "Emma Thompson",
+      name: "Nakul Thompson",
       handle: "@emmaai",
       avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face"
     },
