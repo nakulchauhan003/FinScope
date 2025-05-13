@@ -5,7 +5,7 @@ function WavesDemo() {
   const { theme } = useTheme()
   
   return (
-    <div className="relative h-[280vh] w-full bg-background/80 rounded-lg">
+    <div className="relative h-[320vh] w-full bg-background/80 rounded-lg">
       <div className="absolute inset-0 z-[-1]">
         <Waves
           lineColor={theme === "dark" ? "rgba(255, 255, 255, 0.3)" : "rgba(0, 0, 0, 0.3)"}
