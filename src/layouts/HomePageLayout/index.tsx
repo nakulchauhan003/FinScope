@@ -9,7 +9,9 @@ export default function HomePageLayout({children}:HomePageLayoutProps){
             <header className="z-[100] justify-center items-center h-auto pt-2 absolute left-1/2 transform -translate-x-1/2">
             <NavHeader />
             </header>
-            {children}
+            <div className="min-h-screen w-full relative">
+                {children}
+            </div>
         </div>
     )
 }
