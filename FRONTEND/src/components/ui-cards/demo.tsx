@@ -1,5 +1,4 @@
 import { AnimatedTestimonials } from "./animated-testomonials";
-import img1 from "./images/interest graph.jpg";
 
 function AnimatedTestimonialsDemo() {
   const testimonials = [
@@ -8,7 +7,7 @@ function AnimatedTestimonialsDemo() {
         "Use machine learning models to predict optimal interest rates and loan durations based on customer preferences, credit score, income, and other relevant data.",
       name: "Interest Rate & Time Period Prediction",
       designation: "Product Manager at TechFlow",
-      src: img1,
+      src: '/images/image1.jpg',
     },
     {
       quote:
