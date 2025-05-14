@@ -3,6 +3,7 @@
 import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { Link, useLocation } from "react-router-dom";
+import './styles.css';
 
 function NavHeader() {
   const [position, setPosition] = useState({
@@ -22,7 +23,7 @@ function NavHeader() {
             <Tab setPosition={setPosition}><Link className={`navBarComponentOptions ${location.pathname==='/dashboard'?"highlightedOptionColor":""}`} to={"/dashboard"}>DashBoard</Link></Tab>
             <Tab setPosition={setPosition}><Link className={`navBarComponentOptions ${location.pathname==='/login'?"highlightedOptionColor":""}`} to={'/login'}>Connect</Link></Tab>
             <Tab setPosition={setPosition}><Link className={`navBarComponentOptions ${location.pathname==='/aboutUs'?"highlightedOptionColor":""}`} to={'/aboutUs'}>About Us</Link></Tab>
-            <Tab setPosition={setPosition}><Link className={`navBarComponentOptions ${location.pathname==='/contactUs'?"highlightedOptionColor":""}`} to={'/contactUs'}>ContactUs</Link></Tab>
+            {/* <Tab setPosition={setPosition}><Link className={`navBarComponentOptions ${location.pathname==='/contactUs'?"highlightedOptionColor":""}`} to={'/contactUs'}>ContactUs</Link></Tab> */}
             <Cursor position={position} />
           </ul>
    </>
