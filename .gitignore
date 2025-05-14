@@ -1,5 +1,5 @@
 /BACKEND/node_modules
 
-/BACKEND/.env
+.env
 
 /BACKEND/dist
