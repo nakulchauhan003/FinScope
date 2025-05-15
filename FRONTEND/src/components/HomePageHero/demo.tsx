@@ -24,7 +24,7 @@ const testimonials = [
     author: {
       name: "Google AI",
       handle: "@GoogleAI",
-      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face"
+      avatar: "/images/img1.jpg"
     },
     text: "Research on interpretable machine learning Supports our Explainable AI module for credit decisions"
   },
