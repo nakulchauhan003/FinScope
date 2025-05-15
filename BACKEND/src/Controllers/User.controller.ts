@@ -1,8 +1,10 @@
 import { Request, RequestHandler, Response } from "express";
+import jwt from 'jsonwebtoken';
 import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import User from "../Models/User.Model";
-import { profile } from "console";
+import dotenv from 'dotenv';
+dotenv.config({path:"../../.env"});
 
 export  const checkStatusRoute:RequestHandler=(req,res)=>{
     res.status(200).json({message:'server Running'});
@@ -62,6 +64,7 @@ export const registerUser:RequestHandler=async (req,res):Promise<void> =>{
 
 export const login:RequestHandler=async (req,res):Promise<void> =>{
     try{
+        const JWT_SECRET=process.env.JWT_SECRET || "@#!12";
         const {username,email,password,role}=req.body as {
             username:string,
             email:string,
@@ -92,9 +95,16 @@ export const login:RequestHandler=async (req,res):Promise<void> =>{
             res.status(400).json("Invalid Credentials");
             return;
         }
-        const token=crypto.randomBytes(32).toString("hex");
-        isExistingUser.token=token;
-        await isExistingUser.save();
+        const payload={
+            userId:isExistingUser._id,
+            username:currProfile.username,
+            role:currProfile.role,
+            email:isExistingUser.email
+        };
+        const token=jwt.sign(payload,JWT_SECRET,{expiresIn:"6h"});
+        // const token=crypto.randomBytes(32).toString("hex");
+        // isExistingUser.token=token;
+        // await isExistingUser.save();
         res.status(200).json({
             message:"Login Successful",
             token,

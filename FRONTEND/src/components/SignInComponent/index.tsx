@@ -30,7 +30,7 @@ export default function SignInComponent(){
             setName("");
             setPassword("");
             setRole("");
-            setDisplayMessage(response.data.message);
+            setDisplayMessage(`${response.data.message} Please Login`);
         }catch(error){    
             if(axios.isAxiosError(error) && error.response?.data?.message){
                 setDisplayMessage(error.response.data.message);
@@ -57,7 +57,7 @@ export default function SignInComponent(){
             setEmail("");
             setPassword("");
             setRole("");
-            setDisplayMessage(`${response.data.message} Please Login`);
+            setDisplayMessage(response.data.message);
             localStorage.setItem('token',response.data.token);
         }catch(error){
             if(axios.isAxiosError(error) && error.response?.data?.message){
