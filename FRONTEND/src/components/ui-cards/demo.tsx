@@ -21,21 +21,21 @@ function AnimatedTestimonialsDemo() {
         "Ensure transparency by explaining why certain rates or time periods are suggested, helping both customers and bank officials trust the Al's decisions.",
       name: "Explainable AI",
       designation: "Operations Director at CloudScale",
+      src: "/images/image5.jpg",
+    },
+    {
+      quote:
+        "Implement model that identify suspicious applications or data inconsistencies, alerting the bank to potential fraud.",
+      name: "Fraud Detection",
+      designation: "Engineering Lead at DataPro",
       src: "/images/image4.jpg",
     },
     {
       quote:
-        "Outstanding support and robust features. It's rare to find a product that delivers on all its promises.",
-      name: "James Kim",
-      designation: "Engineering Lead at DataPro",
-      src: "https://images.unsplash.com/photo-1636041293178-808a6762ab39?q=80&w=3464&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    },
-    {
-      quote:
-        "The scalability and performance have been game-changing for our organization. Highly recommend to any growing business.",
-      name: "Lisa Thompson",
+        "The Dues module provides a complete summary of a customer’s loan status, showing remaining installments, total dues, repayment history, and any penalties or refunds. It helps track payments and manage loan accounts efficiently using the customer’s name or code.",
+      name: "Dues",
       designation: "VP of Technology at FutureNet",
-      src: "https://images.unsplash.com/photo-1624561172888-ac93c696e10c?q=80&w=2592&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      src: "/images/image6.jpg",
     },
   ];
   return <AnimatedTestimonials testimonials={testimonials} />;

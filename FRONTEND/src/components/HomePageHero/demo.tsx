@@ -6,7 +6,7 @@ const testimonials = [
     author: {
       name: "Zest AI",
       handle: "@Zestai",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face"
+      avatar: "/images/img2.jpg"
     },
     text: "Provide similar idea to our Risk Assessment Model and Creditworthiness Scoring ideas",
     href: "https://twitter.com/emmaai"
@@ -15,7 +15,7 @@ const testimonials = [
     author: {
       name: "IBM Watson",
       handle: "@IBMWatson",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
+      avatar: "/images/img2.webp"
     },
     text: "Includes fraud detection, risk modeling, and predictive analytics and aligns closely with our Fraud Detection and Risk Assessment features",
     href: "https://twitter.com/davidtech"
@@ -32,7 +32,7 @@ const testimonials = [
     author: {
       name: "Upstart",
       handle: "@Upstart",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face"
+      avatar: "/images/img3.jpeg"
     },
     text: "Our concept of Personalized Loan Suggestions and Interest Rate Prediction matches theirs future working idea closely",
     href: "https://twitter.com/emmaai"
@@ -41,7 +41,7 @@ const testimonials = [
     author: {
       name: "LenddoEFL",
       handle: "@LenddoEFL",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face"
+      avatar: "/images/img4.png"
     },
     text: "Aligns with our idea of using real-time data and customer behavior for fraud detection and loan suggestion",
     href: "https://twitter.com/emmaai"
@@ -50,7 +50,7 @@ const testimonials = [
     author: {
       name: "KreditBee (India-based)",
       handle: "@KreditBee",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face"
+      avatar: "/images/img5.png"
     },
     text: "A practical model for your localized implementation.",
     href: "https://twitter.com/emmaai"
@@ -59,7 +59,7 @@ const testimonials = [
     author: {
       name: "Tala",
       handle: "@Tala",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face"
+      avatar: "/images/img6.jpeg"
     },
     text: "Great example of real-time loan optimization and behavioral risk analysis",
     href: "https://twitter.com/emmaai"
@@ -68,7 +68,7 @@ const testimonials = [
     author: {
       name: "Experian Boost",
       handle: "@ExperianBoost",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face"
+      avatar: "/images/img7.jpg"
     },
     text: "Demonstrates usage of non-traditional data—similar to your project idea.",
     href: "https://twitter.com/emmaai"
