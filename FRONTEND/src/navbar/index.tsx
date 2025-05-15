@@ -2,16 +2,23 @@
 
 import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import useAuth from "../Hooks/useAuth";
 import './styles.css';
 
 function NavHeader() {
+  const {isLoggedIn}=useAuth();
   const [position, setPosition] = useState({
     left: 0,
     width: 0,
     opacity: 0,
   });
-  const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogOut=()=>{
+    localStorage.removeItem('token');
+    navigate('/login');
+  }
 
   return (
     <>
@@ -20,10 +27,10 @@ function NavHeader() {
             onMouseLeave={() => setPosition((pv) => ({ ...pv, opacity: 0 }))}
           >
             <Tab setPosition={setPosition}><Link className={`navBarComponentOptions ${location.pathname==='/'?"highlightedOptionColor":""}`} to={"/"}>Home</Link></Tab>
-            <Tab setPosition={setPosition}><Link className={`navBarComponentOptions ${location.pathname==='/dashboard'?"highlightedOptionColor":""}`} to={"/dashboard"}>DashBoard</Link></Tab>
-            <Tab setPosition={setPosition}><Link className={`navBarComponentOptions ${location.pathname==='/login'?"highlightedOptionColor":""}`} to={'/login'}>Connect</Link></Tab>
+            {isLoggedIn && <Tab setPosition={setPosition}><Link className={`navBarComponentOptions ${location.pathname==='/dashboard'?"highlightedOptionColor":""}`} to={"/dashboard"}>DashBoard</Link></Tab>}
+            {!isLoggedIn && <Tab setPosition={setPosition}><Link className={`navBarComponentOptions ${location.pathname==='/login'?"highlightedOptionColor":""}`} to={'/login'}>Connect</Link></Tab>}
             <Tab setPosition={setPosition}><Link className={`navBarComponentOptions ${location.pathname==='/aboutUs'?"highlightedOptionColor":""}`} to={'/aboutUs'}>About Us</Link></Tab>
-            {/* <Tab setPosition={setPosition}><Link className={`navBarComponentOptions ${location.pathname==='/contactUs'?"highlightedOptionColor":""}`} to={'/contactUs'}>ContactUs</Link></Tab> */}
+            {isLoggedIn && <div onClick={()=>handleLogOut()}><Tab setPosition={setPosition} >Log Out</Tab></div>}
             <Cursor position={position} />
           </ul>
    </>

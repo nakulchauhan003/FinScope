@@ -1,15 +1,29 @@
-import express,{Request,Response} from 'express';
+import express,{Request,Response, urlencoded} from 'express';
+import mongoose from 'mongoose';
+import cors from 'cors';
 import dotenv from 'dotenv';
 dotenv.config({path:"../.env"});
 
-const app=express();
+import userRoutes from './Routes/User.routes';
 
 const PORT= process.env.PORT || 9090;
-app.get('/',(req,res)=>{
-    res.json({message:'SERVER IS RUNNING'});
-})
 
-app.listen(PORT,()=>{
-    console.log(`Server Served At PORT ${PORT}`);
-})
+const app=express();
 app.use(express.json());
+app.use(express.urlencoded({extended:true}));
+app.use(cors());
+
+//route middlewares
+
+app.use('/api/user',userRoutes);
+
+async function startDB(){
+    mongoose.connect(`${process.env.MONGO_URL}`).
+    then(()=>console.log('Connected to Db')).
+    catch((err)=> console.error("MongoDB connection error:", err));
+    app.listen(PORT,()=>{
+        console.log(`Server Served At PORT ${PORT}`);
+    })
+}
+
+startDB();

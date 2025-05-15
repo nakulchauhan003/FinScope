@@ -1,20 +1,100 @@
+import axios from 'axios';
+import { clientServer } from '../../Config';
 import './style.css';
 import { useState } from "react";
+import { useNavigate } from 'react-router-dom';
+
 export default function SignInComponent(){
+    const navigate=useNavigate();
+
     const [inSignUpMode,setInSignUpMode]=useState(false);
+    const [name,setName]=useState("");
+    const[username,setUserName]=useState("");
+    const [email,setEmail]=useState("");
+    const [password,setPassword]=useState("");
+    const [role,setRole]=useState("");
+
+    const [displayMessage,setDisplayMessage]=useState("");
+
+    const handleSignUp=async ()=>{
+        try{
+            const response=await clientServer.post('/api/user/register',{
+                name,
+                username,
+                email,
+                password,
+                role
+            });
+            setEmail("");
+            setUserName("");
+            setName("");
+            setPassword("");
+            setRole("");
+            setDisplayMessage(response.data.message);
+        }catch(error){    
+            if(axios.isAxiosError(error) && error.response?.data?.message){
+                setDisplayMessage(error.response.data.message);
+            }else{
+               setDisplayMessage("Something went wrong. Please try again.");
+            }
+        }finally{
+            setTimeout(()=>{
+                setDisplayMessage("");
+            },2000);
+        }
+    }
+
+    const handleSignIn=async ()=>{
+        console.log(email,password,role);
+        try{
+            const response=await clientServer.post('/api/user/login',{
+                username,
+                email,
+                password,
+                role
+            });
+            setUserName("");
+            setEmail("");
+            setPassword("");
+            setRole("");
+            setDisplayMessage(`${response.data.message} Please Login`);
+            localStorage.setItem('token',response.data.token);
+        }catch(error){
+            if(axios.isAxiosError(error) && error.response?.data?.message){
+                setDisplayMessage(error.response.data.message);
+            }else{
+                setDisplayMessage("Something went wrong. Please try again.");
+            }
+        }finally{
+            setTimeout(()=>{
+                setDisplayMessage("");
+                navigate('/dashboard');
+            },2000);
+        }
+    }
+
     return(
         <div className="mainContainer">
             <div className={`signIn_mainContainer ${inSignUpMode?"sign-up-mode":""}`}>
                 {!inSignUpMode?
                 <div className="singIn_mainContainerLeft">
+                    <p>{displayMessage}</p>
                     <h1 className="text-5xl font-medium text-center">Sign in</h1>
-                    <input className="inputFields" type="text" placeholder="Email" required />
-                    <input className="inputFields" type="text" placeholder="Password" required />
-                    <select className="roleSelector" title="Select role" name="role">
-                        <option value="user">User</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                     <div className="SignInButton">SIGN IN</div>
+                    <input type="text" className="inputFields" placeholder="UserName" name='username' onChange={(e)=>setUserName(e.target.value)} value={username} required />
+                    <input className="inputFields" type="text" placeholder="Email" name='email' onChange={(e)=>setEmail(e.target.value)} value={email} required />
+                    <input className="inputFields" type="password" placeholder="Password" name='password' onChange={(e)=>setPassword(e.target.value)} value={password} required />
+                    <div className='inputRadios'>
+                        <label>
+                            <input type="radio" name="role" value="User" checked={role === "User"} onChange={(e) => setRole(e.target.value)} />
+                            User
+                        </label>
+
+                        <label>
+                            <input type="radio" name="role" value="Admin" checked={role === "Admin"} onChange={(e) => setRole(e.target.value)} />
+                            Admin
+                        </label>
+                    </div>
+                     <div className="SignInButton" onClick={()=>handleSignIn()}>SIGN IN</div>
                 </div>
                 :
                 <div className="singUp_mainContainerLeft">
@@ -32,15 +112,24 @@ export default function SignInComponent(){
                 </div>
                 :
                 <div className="singUp_mainContainerRight">
+                    {displayMessage.length>0 && <p className='pt-2 text-[1rem]'>{displayMessage}</p>}
                     <h1 className="text-5xl font-medium text-center">Sign Up</h1>
-                    <input type="text" className="inputFields" placeholder="UserName" required />
-                    <input className="inputFields" type="text" placeholder="Email" required />
-                    <input className="inputFields" type="password" placeholder="Password" required />
-                    <select className="roleSelector" title="Select role" name="role">
-                        <option value="user">User</option>
-                        <option value="admin">Admin</option>
-                    </select>
-                     <div className="SignInButton">SIGN UP</div>
+                    <input type="text" className='inputFields' placeholder='Name' name='Name' onChange={(e)=>setName(e.target.value)} value={name} required />
+                    <input type="text" className="inputFields" placeholder="UserName" name='username' onChange={(e)=>setUserName(e.target.value)} value={username} required />
+                    <input className="inputFields" type="text" placeholder="Email" name='email' onChange={(e)=>setEmail(e.target.value)} required value={email} />
+                    <input className="inputFields" type="password" placeholder="Password" name='password' onChange={(e)=>setPassword(e.target.value)} value={password} required />
+                    <div className='inputRadios'>
+                        <label>
+                            <input type="radio" name="role" value="User" checked={role === "User"} onChange={(e) => setRole(e.target.value)} />
+                            User
+                        </label>
+
+                        <label>
+                            <input type="radio" name="role" value="Admin" checked={role === "Admin"} onChange={(e) => setRole(e.target.value)} />
+                            Admin
+                        </label>
+                    </div>
+                     <div className="SignInButton" onClick={()=>handleSignUp()}>SIGN UP</div>
                 </div>
                 }
             </div>
