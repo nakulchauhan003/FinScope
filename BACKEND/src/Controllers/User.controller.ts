@@ -4,6 +4,8 @@ import bcrypt from 'bcrypt';
 import crypto from 'crypto';
 import User from "../Models/User.Model";
 import dotenv from 'dotenv';
+import { ObjectId } from "mongodb";
+import { ProfileI } from "../types/UserI";
 dotenv.config({path:"../../.env"});
 
 export  const checkStatusRoute:RequestHandler=(req,res)=>{
@@ -103,8 +105,8 @@ export const login:RequestHandler=async (req,res):Promise<void> =>{
         };
         const token=jwt.sign(payload,JWT_SECRET,{expiresIn:"6h"});
         // const token=crypto.randomBytes(32).toString("hex");
-        // isExistingUser.token=token;
-        // await isExistingUser.save();
+        isExistingUser.token=token;
+        await isExistingUser.save();
         res.status(200).json({
             message:"Login Successful",
             token,
@@ -116,6 +118,32 @@ export const login:RequestHandler=async (req,res):Promise<void> =>{
             res.status(500).json({message:err.message});
         }else{
             res.status(500).json({message:"Unknown Error"});
+        }
+    }
+}
+
+export const getUserAndProfile:RequestHandler=async(req,res): Promise<void> =>{
+    try{
+        const {token}=req.query;
+        const userProfile=await User.findOne({token:token}) as {
+            _id: ObjectId,
+            name: string,
+            email:string,
+            profiles:[{
+                username: string,
+                role: 'Admin' | 'User',
+                password: string,
+            }],
+            token: string;
+        };
+        console.log(userProfile);
+        res.status(200).json({message:"ok"});
+
+    }catch(err:unknown){
+        if(err instanceof Error){
+            res.status(500).json({message:err.message});
+        }else{
+            res.status(500).json({message:'Unknown Error'});
         }
     }
 }

@@ -1,6 +1,7 @@
-import dues from '../model/dues'
+import DuesModule from "../model/dues";
+
 export default function DuesComponent(){
     return(
-        <dues/>
+        <DuesModule/>
     )
 }
