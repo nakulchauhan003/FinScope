@@ -1,28 +1,34 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { clientServer } from "../../Config";
 
 const DashBoardMainComponent:React.FC=()=>{
-
-    useEffect(()=>{
-        const response=clientServer.get('api/user/get_user_and_profile',{
-            params:{
-                token:localStorage.getItem("token")
-            }
+  type UserProfile = {
+    name: string;
+    email: string;
+    profiles:[{
+      username: string,
+      role: string
+    }]
+  };
+  const [userProfileData,setUserProfileData]=useState< UserProfile | null >(null);
+    
+    const getUserAndProfile=async ()=>{
+      try{
+        const response=await clientServer.get('api/user/get_user_and_profile',{
+          params:{
+              token:localStorage.getItem("token")
+          }
         })
-    },[])
-    interface UserInfo {
-        name: string;
-        username: string;
-        email: string;
-        role: string;
+        setUserProfileData(response.data.userProfile);
+      }catch(error){
+        console.error("Error fetching user profile:", error);
       }
       
-      const user: UserInfo = {
-        name: "Aditya Sharma",
-        username: "aditya_01",
-        email: "aditya@email.com",
-        role: "Admin",
-      };
+    }
+
+    useEffect(()=>{
+        getUserAndProfile();
+    },[])
       
       const features = [
         {
@@ -66,12 +72,14 @@ const DashBoardMainComponent:React.FC=()=>{
     return(
         <div className="p-6 bg-gray-100 min-h-screen">
       {/* User Info */}
-      <div className="bg-white p-6 rounded-2xl shadow-md mb-8">
-        <h2 className="text-2xl font-semibold mb-2">Welcome, {user.name}!</h2>
-        <p><span className="font-medium">Username:</span> {user.username}</p>
-        <p><span className="font-medium">Email:</span> {user.email}</p>
-        <p><span className="font-medium">Role:</span> {user.role}</p>
+      {userProfileData &&
+       <div className="bg-white p-6 rounded-2xl shadow-md mb-8">
+        <h2 className="text-2xl font-semibold mb-2">Welcome, {userProfileData.name || ""}!</h2>
+        <p><span className="font-medium">Username:</span> {userProfileData.profiles[0].username}</p>
+        <p><span className="font-medium">Email:</span> {userProfileData.email}</p>
+        <p><span className="font-medium">Role:</span> {userProfileData.profiles[0].role}</p>
       </div>
+      } 
 
       {/* Feature Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

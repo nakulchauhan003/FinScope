@@ -136,9 +136,7 @@ export const getUserAndProfile:RequestHandler=async(req,res): Promise<void> =>{
             }],
             token: string;
         };
-        console.log(userProfile);
-        res.status(200).json({message:"ok"});
-
+        res.status(200).json({userProfile:userProfile});
     }catch(err:unknown){
         if(err instanceof Error){
             res.status(500).json({message:err.message});

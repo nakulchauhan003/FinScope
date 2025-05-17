@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 dotenv.config({path:"../.env"});
 
 import userRoutes from './Routes/User.routes';
+import loanRoutes from './Routes/loanRoutes'
 
 const PORT= process.env.PORT || 9090;
 
@@ -16,6 +17,7 @@ app.use(cors());
 //route middlewares
 
 app.use('/api/user',userRoutes);
+app.use('/api/loan',loanRoutes);
 
 async function startDB(){
     mongoose.connect(`${process.env.MONGO_URL}`).

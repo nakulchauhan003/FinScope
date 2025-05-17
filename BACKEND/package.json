@@ -12,6 +12,9 @@
   "author": "Aditya Kumar",
   "license": "ISC",
   "dependencies": {
+    "@langchain/core": "^0.3.56",
+    "@langchain/google-genai": "^0.2.9",
+    "@langchain/openai": "^0.5.10",
     "axios": "^1.9.0",
     "bcrypt": "^6.0.0",
     "cors": "^2.8.5",
@@ -20,9 +23,12 @@
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "jwt-decode": "^4.0.0",
+    "langchain": "^0.3.26",
     "mongodb": "^6.16.0",
     "mongoose": "^8.14.3",
-    "nodemon": "^3.1.10"
+    "node-fetch": "^3.3.2",
+    "nodemon": "^3.1.10",
+    "openai": "^4.98.0"
   },
   "devDependencies": {
     "@types/axios": "^0.14.4",
@@ -32,6 +38,7 @@
     "@types/jsonwebtoken": "^9.0.9",
     "@types/jwt-decode": "^3.1.0",
     "@types/node": "^22.15.18",
+    "@types/node-fetch": "^2.6.12",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.8.3"
   }
